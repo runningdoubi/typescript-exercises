@@ -40,8 +40,16 @@ interface Admin {
     age: number;
     role: string;
 }
-
-type PowerUser = unknown;
+// solution 1
+// type PowerUser = {
+//     type: string,
+//     name: string,
+//     age: number,
+//     role: string,
+//     occupation: string
+// };
+// solution 2
+type PowerUser = Omit<User, 'type'> & Omit<Admin, 'type'> & {type: 'powerUser'}
 
 type Person = User | Admin | PowerUser;
 

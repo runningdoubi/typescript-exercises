@@ -26,7 +26,28 @@ Run this exercise:
 
 */
 
-const users: unknown[] = [
+// solution 1
+// type User = {
+//     name: string,
+//     age: number,
+//     occupation: string
+// }
+
+// const users: User[] = [
+//     {
+//         name: 'Max Mustermann',
+//         age: 25,
+//         occupation: 'Chimney sweep'
+//     },
+//     {
+//         name: 'Kate Müller',
+//         age: 23,
+//         occupation: 'Astronaut'
+//     }
+// ];
+
+// solution 2
+const users = [
     {
         name: 'Max Mustermann',
         age: 25,
@@ -37,9 +58,11 @@ const users: unknown[] = [
         age: 23,
         occupation: 'Astronaut'
     }
-];
+]
 
-function logPerson(user: unknown) {
+type User = typeof users[number];
+
+function logPerson(user: User) {
     console.log(` - ${chalk.green(user.name)}, ${user.age}`);
 }
 

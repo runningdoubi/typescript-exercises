@@ -63,8 +63,10 @@ function logPerson(person: Person) {
         ` - ${chalk.green(person.name)}, ${person.age}, ${person.type === 'admin' ? person.role : person.occupation}`
     );
 }
+function filterPersons(persons: Person[], personType: 'user', criteria: Partial<Person>): User[];
+function filterPersons(persons: Person[], personType: 'admin', criteria: Partial<Person>): Admin[];
 
-function filterPersons(persons: Person[], personType: string, criteria: unknown): unknown[] {
+function filterPersons(persons: Person[], personType: string, criteria: Partial<Person>) {
     return persons
         .filter((person) => person.type === personType)
         .filter((person) => {
