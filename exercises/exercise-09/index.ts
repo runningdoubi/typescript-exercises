@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { resolve } from 'dns';
 
 /*
 
@@ -71,9 +72,29 @@ type ApiResponse<T> = (
     }
 );
 
-function promisify(arg: unknown): unknown {
-    return null;
+function promisify<T>(fn: (callback: (response: ApiResponse<T>) => void) => void): () => Promise<T> {
+    return () => new Promise((resolve, reject) => {
+        fn(res => {
+            if (res.status === 'success') {
+                resolve(res.data);
+            } else {
+                reject(new Error(res.error));
+            }
+        })
+    })
 }
+
+// let promisify = (fn) => () => {
+//     return new Promise((resolve, reject) => {
+//         fn(res => {
+//             if (res.status === 'success') {
+//                 resolve(res.data);
+//             } else {
+//                 reject(res.errmsg);
+//             }
+//         })
+//     })
+// }
 
 const oldApi = {
     requestAdmins(callback: (response: ApiResponse<Admin[]>) => void) {
